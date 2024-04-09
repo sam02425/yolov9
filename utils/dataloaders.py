@@ -7,6 +7,7 @@ import os
 import random
 import shutil
 import time
+import numpy as np
 from itertools import repeat
 from multiprocessing.pool import Pool, ThreadPool
 from pathlib import Path
@@ -753,6 +754,14 @@ class LoadImagesAndLabels(Dataset):
         for i, index in enumerate(indices):
             # Load image
             img, _, (h, w) = self.load_image(index)
+#            print(f"Index: {index}")
+#            print(f"Labels: {self.labels[index].shape}")
+#            print(f"Segments: {len(self.segments[index])}")
+#            print(f"segments4 length: {len(segments4)}")
+#            print(f"labels4: {labels4}")
+#            print(f"segments4: {segments4}")
+#            print(f"labels4 length: {len(labels4)}")
+#            print(f"labels4 type: {type(labels4)}")
 
             # place img in img4
             if i == 0:  # top left
