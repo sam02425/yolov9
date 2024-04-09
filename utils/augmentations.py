@@ -245,6 +245,14 @@ def copy_paste(im, labels, segments, p=0.5):
         indexes = np.nonzero((ioa < 0.30).all(1))[0]  # (N, )
         n = len(indexes)
         for j in random.sample(list(indexes), k=round(p * n)):
+#            print(f"len(labels): {len(labels)}, len(boxes): {len(boxes)}, len(segments): {len(segments)}")
+#            print(f"j: {j}")
+#            print(f"indexes: {indexes}")
+#            print(f"labels: {labels}")
+#            print(f"boxes: {boxes}")
+#            print(f"segments: {segments}")
+            if j >= len(labels) or j >= len(boxes) or j >= len(segments):
+                continue  # Skip this iteration if j is out of range
             l, box, s = labels[j], boxes[j], segments[j]
             labels = np.concatenate((labels, [[l[0], *box]]), 0)
             segments.append(np.concatenate((w - s[:, 0:1], s[:, 1:2]), 1))
