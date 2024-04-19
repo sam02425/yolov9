@@ -392,6 +392,12 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
                 stop = broadcast_list[0]
         if stop:
             break  # must break all DDP ranks
+        # Save the weights after each epoch
+        epoch_weights_path = f"weights/epoch_{epoch+1}.pt"
+        # Create the 'weights/' directory if it doesn't exist
+        os.makedirs('weights', exist_ok=True)
+        torch.save(model.state_dict(), epoch_weights_path)
+        print(f"Weights saved for epoch {epoch+1}: {epoch_weights_path}")
 
         # end epoch ----------------------------------------------------------------------------------------------------
     # end training -----------------------------------------------------------------------------------------------------
